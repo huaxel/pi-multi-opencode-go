@@ -1,6 +1,6 @@
 {
   "name": "@juanbenjumea/pi-multi-opencode-go",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Multi-account failover and rotation for the OpenCode Go provider in Pi.",
   "type": "module",
   "license": "MIT",
