@@ -57,6 +57,12 @@ export default function (
     }),
     execute: async (_, params) => {
       const lines: string[] = [];
+      const detail: {
+        spendSince?: string;
+        spendTotal?: number;
+        pricingLookup?: string;
+        accounts: { label: string; status: string }[];
+      } = { accounts: [] };
       const fs = await import("node:fs");
       const path = await import("node:path");
       const homedir = (await import("node:os")).homedir;
@@ -104,6 +110,8 @@ export default function (
         const models = Object.values(usage.models as Record<string, { cost?: number; tokens?: number; days?: number }>);
         const total = models.reduce((s, m) => s + Number(m.cost ?? 0), 0);
         const top = [...models].sort((a, b) => Number(b.cost ?? 0) - Number(a.cost ?? 0)).slice(0, 3);
+        detail.spendTotal = total;
+        if (typeof usage.since === "string") detail.spendSince = usage.since;
         lines.push(`spend since ${usage.since ?? "?"}: $${total.toFixed(2)}`);
         for (const m of top) lines.push(`- $${Number(m.cost ?? 0).toFixed(2)} ${m.tokens ?? 0} tok`);
       }
@@ -121,6 +129,7 @@ export default function (
             : null;
         if (hit) {
           const [id, prices] = hit;
+          detail.pricingLookup = id;
           const o = prices.openrouter;
           const c = prices.opencode;
           const n = prices.nan;
@@ -142,6 +151,7 @@ export default function (
           const label = accounts[i].label;
           if (r.status === "rejected") {
             lines.push(`${label}: fetch failed`);
+            detail.accounts.push({ label, status: "fetch failed" });
             continue;
           }
           const u = r.value;
@@ -152,7 +162,9 @@ export default function (
           ]
             .filter(Boolean)
             .join(", ");
-          lines.push(`${label}: ${u.error ? `error (${u.error})` : windows || "no data"}`);
+          const status = u.error ? `error (${u.error})` : windows || "no data";
+          lines.push(`${label}: ${status}`);
+          detail.accounts.push({ label, status });
         }
       }
       const cooldowns = loadPersistedCooldowns();
@@ -191,7 +203,10 @@ export default function (
       } catch {
         // history is best-effort
       }
-      return { content: [{ type: "text" as const, text: lines.join("\n") }] };
+      return {
+        content: [{ type: "text" as const, text: lines.join("\n") }],
+        details: detail,
+      };
     },
   });
 
