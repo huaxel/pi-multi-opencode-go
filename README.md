@@ -4,7 +4,7 @@ Multi-account failover for Pi’s **`opencode-go`** provider. Rotates API keys u
 
 Inspired by [pi-multicodex](https://pi.dev/packages/@victor-software-house/pi-multicodex) and [pi-multi-account](https://pi.dev/packages/pi-multi-account), but built for OpenCode Go.
 
-Usage fetching lives in [`@juanbenjumea/opencode-go-usage`](../opencode-go-usage) (shared with `@juanbenjumea/pi-dynamic-footer`). Since v0.2.0 it uses the official API (`GET https://opencode.ai/zen/go/v1/usage`, same key as chat completions) — no workspace cookies or dashboard HTML scraping.
+Usage fetching lives in [`@juanbenjumea/pi-provider-usage-fetcher`](../opencode-go-usage) (shared with `@juanbenjumea/pi-dynamic-footer`). Since v0.2.0 it uses the official API (`GET https://opencode.ai/zen/go/v1/usage`, same key as chat completions) — no workspace cookies or dashboard HTML scraping.
 
 ## Install
 

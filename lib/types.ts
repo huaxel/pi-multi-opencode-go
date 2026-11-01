@@ -1,4 +1,4 @@
-import type { OpenCodeGoWindow } from "@juanbenjumea/opencode-go-usage/lib/types.ts";
+import type { OpenCodeGoWindow } from "@juanbenjumea/pi-provider-usage-fetcher/lib/types.ts";
 
 export type { OpenCodeGoWindow };
 

@@ -1,4 +1,4 @@
-import { fetchUsageApi } from "@juanbenjumea/opencode-go-usage/lib/usage-api.ts";
+import { fetchUsageApi } from "@juanbenjumea/pi-provider-usage-fetcher/lib/usage-api.ts";
 import type { AccountUsage, OpenCodeGoAccount } from "./types.ts";
 
 /**

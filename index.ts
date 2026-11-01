@@ -29,7 +29,7 @@ import {
 } from "./lib/state.ts";
 import type { AccountUsage, OpenCodeGoAccount } from "./lib/types.ts";
 
-export { parseOpenCodeGoDashboard } from "@juanbenjumea/opencode-go-usage";
+export { parseOpenCodeGoDashboard } from "@juanbenjumea/pi-provider-usage-fetcher";
 export type { OpenCodeGoAccount, AccountUsage, OpenCodeGoWindow } from "./lib/types.ts";
 
 const QUOTA_ERROR_RE =
